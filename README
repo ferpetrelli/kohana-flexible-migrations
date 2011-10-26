@@ -1,0 +1,7 @@
+INSTALLATION
+
+Enable module in bootstrap.php
+
+    'flexiblemigrations' => MODPATH.'flexiblemigrations'
+
+Run the migrations.sql script on your server
