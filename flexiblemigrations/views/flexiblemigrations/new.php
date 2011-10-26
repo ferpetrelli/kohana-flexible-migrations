@@ -10,3 +10,6 @@
   <?php echo  Form::input('migration_name') ?>
   <?php echo  Form::submit('submit','Create Migration') ?>
 </form>
+
+<br>
+<div>Please use only alphanumeric characters and spaces</div>

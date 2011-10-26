@@ -19,31 +19,10 @@ class Kohana_Flexiblemigrations
 {
 	protected $_config;
 
-	/**
-	 * Intialize migration library
-	 *
-	 */
 	public function __construct()
 	{
 		$this->_config = Kohana::config('flexiblemigrations')->as_array();
 	}
-
-	// /**
-	//  * Installs the schema up to the last version
-	//  * Outputs a report of the installation
-	//  */
-	// public function install()
-	// {
-	// 	$last_version = $this->last_schema_version();
-		
-	// 	if ($last_version === FALSE)
-	// 	{
-	// 		throw new Kohana_Exception(Kohana::lang('migrations.none_found'));
-	// 	}
-		
-	// 	$this->version($last_version);
-	// }
-
 
 	public function get_timestamp() {
 		return date('YmdHis');
@@ -53,9 +32,12 @@ class Kohana_Flexiblemigrations
 		return $this->_config;
 	}
 
-
-	public function get_migrations()
-	{
+	/**
+	 * Get all valid migrations file names
+	 *
+	 * @return array migrations
+	 */
+	public function get_migrations()	{
 		$migrations = glob($this->_config['path'] . '*' . EXT);
 		foreach ($migrations as $i => $file)
 		{
@@ -67,6 +49,11 @@ class Kohana_Flexiblemigrations
 		return $migrations;
 	}
 
+	/**
+	 * Get all migration keys (timestamps)
+	 *
+	 * @return array migrations_keys
+	 */
 	protected function get_migration_keys() {
 		$migrations = $this->get_migrations();
 		$keys = array();
@@ -77,11 +64,15 @@ class Kohana_Flexiblemigrations
 		return $keys;
 	}
 
+	/**
+	 * Run all pending migrations
+	 *
+	 */
 	public function migrate() {
 		$migration_keys = $this->get_migration_keys();
-
 		$migrations = ORM::factory('migration')->find_all();
 
+		//Remove executed migrations from queue
 		foreach ($migrations as $migration) {
 			if (array_key_exists($migration->hash, $migration_keys)) {
 				unset($migration_keys[$migration->hash]);
@@ -91,27 +82,23 @@ class Kohana_Flexiblemigrations
 		if (count($migration_keys) > 0) {
 			foreach ($migration_keys as $key => $value) {
 				echo "Executing migration: '" . $value . "' with hash: " .$key;
-
 				$migration_object = $this->load_migration($key);
 				$migration_object->up();
-
 				$model = ORM::factory('migration');
 				$model->hash = $key;
 				$model->name = $value;
 				$model->save();
-
-				if ($model) {
-					echo "  ---  SUCCESS";
-				} else {
-					echo "  ---  ERROR";
-				}
-				echo "<br>";
+				echo $model ? '<span class="ok">OK</span>' : '<span class="error">ERROR</span>';
 			}
 		} else {
 			echo "Nothing to migrate";
 		}
 	}
 
+	/**
+	 * Rollback last executed migration.
+	 *
+	 */
 	public function rollback() {
 		//Get last executed migration
 		$model = ORM::factory('migration')->order_by('created_at','DESC')->order_by('hash','DESC')->limit(1)->find();
@@ -119,11 +106,10 @@ class Kohana_Flexiblemigrations
 		if ($model->loaded()) {
 			$migration_object = $this->load_migration($model->hash);
 			$migration_object->down();
-			
 			if ($model) {
 				echo "Migration '" . $model->name . "' with hash: " . $model->hash . ' was succefully removed';
 			} else {
-				echo "   ---  ERROR WHEN ROLLBACK";
+				echo "ERROR WHEN ROLLBACK";
 			}
 			echo "<br>";
 			$model->delete();
@@ -131,8 +117,6 @@ class Kohana_Flexiblemigrations
 			echo "Nothing to do.";
 		}
 	}
-
-
 
 	protected function load_migration($version) {
 

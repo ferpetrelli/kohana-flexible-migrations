@@ -12,11 +12,11 @@
 <br>
 
 <div>
-  <?= html::anchor( Route::get('migrations_migrate')->uri() , 'MIGRATE all new schemas') ?>
+  <?= html::anchor( Route::get('migrations_migrate')->uri() , 'RUN ALL PENDING MIGRATIONS') ?>
 </div>
 
 <div>
-  <?= html::anchor( Route::get('migrations_rollback')->uri() , 'ROLLBACK last migration') ?>
+  <?= html::anchor( Route::get('migrations_rollback')->uri() , 'ROLLBACK') ?>
 </div>
 
 <div><h2>List of migrations</h2></div>
@@ -32,12 +32,11 @@
     	  <tr>
          <td><?= basename($migration, EXT); ?></td> 
          <td> 
-         <?  if ( array_key_exists(  substr(basename($migration, EXT), 0, 14) , $migrations_runned) ) {
-               echo "OK";
-             } else {
-               echo "PENDING";
-             }
-         ?>
+         <?  if ( array_key_exists(  substr(basename($migration, EXT), 0, 14) , $migrations_runned) ) { ?>
+               <span class="ok">OK</span>
+         <?  } else { ?>
+               <span class="pending">PENDING</span>
+         <?  }  ?>
          </td>
         </tr>
     <? } ?>

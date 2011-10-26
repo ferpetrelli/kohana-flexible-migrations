@@ -24,6 +24,8 @@ class Controller_FlexibleMigrations extends Kohana_Controller_Template {
 			$this->view->set_global('message', $message);
 			Session::instance()->delete('message');
 		}
+
+		parent::after();
 	}
 
 	public function action_index() {
@@ -35,12 +37,13 @@ class Controller_FlexibleMigrations extends Kohana_Controller_Template {
 		$this->view = new View('flexiblemigrations/index');
 		$this->view->set_global('migrations', $migrations);
 		$this->view->set_global('migrations_runned', $migrations_runned);
-		echo $this->view;
+		
+		$this->template->view = $this->view;
 	}
 
 	public function action_new() {
 		$this->view = new View('flexiblemigrations/new');
-		echo $this->view;
+		$this->template->view = $this->view;
 	}
 
 	public function action_create() {
@@ -70,6 +73,8 @@ class Controller_FlexibleMigrations extends Kohana_Controller_Template {
 	}
 
 	public function action_migrate() {
+		$this->view = new View('flexiblemigrations/migrate');
+		$this->template->view = $this->view;
 		try {
 			$this->migrations->migrate();
 		} catch (Exception $e) {
@@ -80,6 +85,8 @@ class Controller_FlexibleMigrations extends Kohana_Controller_Template {
 	}
 
 	public function action_rollback() {
+		$this->view = new View('flexiblemigrations/rollback');
+		$this->template->view = $this->view;
 		try {
 			$this->migrations->rollback();
 		} catch (Exception $e) {
