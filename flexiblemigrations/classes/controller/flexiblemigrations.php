@@ -5,17 +5,16 @@ class Controller_FlexibleMigrations extends Kohana_Controller_Template {
   public $template = 'migrations';
   protected $view;
 
-	public function __construct($request)
-	{
-		parent::__construct($request);
+	public function before() {
 		$this->migrations = new Flexiblemigrations(TRUE);
-		
 		try {
 			$this->model = ORM::factory('migration');
 		} catch (Database_Exception $a) {
 			echo 'Flexible Migrations is not installed. Please Run the migrations.sql script in your mysql server';
 			exit();
 		}
+
+		parent::before();
 	}
 
 	public function after() {
@@ -79,14 +78,10 @@ class Controller_FlexibleMigrations extends Kohana_Controller_Template {
 		$this->template->view = $this->view;
 		try {
 			$this->migrations->migrate();
-		} catch (ErrorException $err) {
-			echo $err->getMessage();
-			exit();
 		} catch (Exception $e) {
 			echo $e->getMessage();
 			exit();
 		}
-		
 	}
 
 	public function action_rollback() {
