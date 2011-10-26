@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
-class Model_Migration extends Model_Base {
+class Model_Migration extends ORM {
 
 	public function is_installed() {
 		try {
@@ -20,11 +20,5 @@ class Model_Migration extends Model_Base {
     	}
 	  }
 	}
-
-
-	protected function create_base_table() {
-		
-	}
-
-
+  
 }

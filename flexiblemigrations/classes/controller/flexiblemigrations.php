@@ -63,6 +63,8 @@ class Controller_FlexibleMigrations extends Kohana_Controller_Template {
       fwrite($file, $view);
       fclose($file);
 
+      chmod($config['path'].$file_name, 0770);
+
 			$session->set('message', "Migration ".$migration_name." was succefully created. Please Edit.");
 		  $this->request->redirect(url::base().Route::get('migrations_route')->uri());
 
@@ -77,6 +79,9 @@ class Controller_FlexibleMigrations extends Kohana_Controller_Template {
 		$this->template->view = $this->view;
 		try {
 			$this->migrations->migrate();
+		} catch (ErrorException $err) {
+			echo $err->getMessage();
+			exit();
 		} catch (Exception $e) {
 			echo $e->getMessage();
 			exit();
