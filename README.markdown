@@ -30,7 +30,14 @@ Some features:
 
 Enter url:  yoursite/migrations and that's it!
 
-Clicking on 'Generate NEW migration' you can create a new migration file.
+When you click on 'Generate NEW migration' you can set a name and create a new migration file.
+
+E.g. for a migration called 'typical migration' the generated file could be:
+
+```
+20120526170715_typical_migration.php
+```
+
 When you finish editing, simply click on 'Run all pending migrations'.
 
 Enjoy!
