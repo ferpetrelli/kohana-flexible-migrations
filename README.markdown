@@ -5,6 +5,7 @@ It's based on kohana-migrations module by Matías Montes and Jamie Madill
 
 Some features:
 
+* Kohana 3.2 compatibility
 * Solves the problem with migrations numbers using a hash instead of a integer
 * Migration generation with one click
 * Supports migrations and rollbacks
@@ -81,3 +82,7 @@ remove_column($table_name, $column_name)
 add_index($table_name, $index_name, $columns, $index_type = 'normal')
 remove_index($table_name, $index_name)
 ```
+
+## Kohana < 3.2 versions
+
+For kohana < 3.2 versions please download 'kohana-legacy' branch instead of 'master'.
