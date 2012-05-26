@@ -1,6 +1,6 @@
-<?= '<?php' ?> defined('SYSPATH') or die('No direct script access.');
+<?php echo '<?php' ?> defined('SYSPATH') or die('No direct script access.');
 
-class <?= $migration_name ?> extends Migration
+class <?php echo $migration_name ?> extends Migration
 {
   public function up()
   {

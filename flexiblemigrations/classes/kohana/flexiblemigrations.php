@@ -10,7 +10,7 @@
  * Based on Migrations module by Jamie Madill
  *
  * @package		Flexiblemigrations
- * @author 		Matías Montes
+ * @author 		MatÃ­as Montes
  * @author    Jamie Madill
  * @author    Fernando Petrelli
  */
@@ -21,7 +21,7 @@ class Kohana_Flexiblemigrations
 
 	public function __construct()
 	{
-		$this->_config = Kohana::config('flexiblemigrations')->as_array();
+		$this->_config = Kohana::$config->load('flexiblemigrations')->as_array();
 	}
 
 	public function get_timestamp() {
@@ -82,6 +82,7 @@ class Kohana_Flexiblemigrations
 		if (count($migration_keys) > 0) {
 			foreach ($migration_keys as $key => $value) {
 				echo "Executing migration: '" . $value . "' with hash: " .$key;
+				
 				$migration_object = $this->load_migration($key);
 				$migration_object->up();
 				$model = ORM::factory('migration');
@@ -93,6 +94,7 @@ class Kohana_Flexiblemigrations
 		} else {
 			echo "Nothing to migrate";
 		}
+		echo html::anchor( Route::get('migrations_route')->uri() , "<br>Back");
 	}
 
 	/**
@@ -107,7 +109,7 @@ class Kohana_Flexiblemigrations
 			$migration_object = $this->load_migration($model->hash);
 			$migration_object->down();
 			if ($model) {
-				echo "Migration '" . $model->name . "' with hash: " . $model->hash . ' was succefully removed';
+				echo "Migration '" . $model->name . "' with hash: " . $model->hash . ' was succefully "rollbacked"';
 			} else {
 				echo "ERROR WHEN ROLLBACK";
 			}
@@ -116,6 +118,7 @@ class Kohana_Flexiblemigrations
 		} else {
 			echo "Nothing to do.";
 		}
+		echo html::anchor( Route::get('migrations_route')->uri() , "<br>Back");
 	}
 
 	protected function load_migration($version) {
@@ -123,28 +126,28 @@ class Kohana_Flexiblemigrations
 		$f = glob($this->_config['path'] . $version. '*' . EXT);
 
 		if ( count($f) > 1 ) // Only one migration per step is permitted
-			throw new Kohana_Exception('migrations.multiple_versions', $version);
+			throw new Kohana_Exception('There are repeated migration names');
 
 		if ( count($f) == 0 ) // Migration step not found
-			throw new Kohana_Exception('migrations.not_found', $version);
+			throw new Kohana_Exception('Nothing to rollback');
 
 		$file = basename($f[0]);
 		$name = basename($f[0], EXT);
 
 		// Filename validations
 		if ( !preg_match('/^\d{14}_(\w+)$/', $name, $match) )
-			throw new Kohana_Exception('migrations.invalid_filename', $file);
+			throw new Kohana_Exception('Invalid filename :file', array(':file' => $file));
 
 		$match[1] = strtolower($match[1]);
+		require $f[0];
 
-		include $f[0];
 		$class = ucfirst($match[1]);
 
 		if ( !class_exists($class) )
-			throw new Kohana_Exception('migrations.class_doesnt_exist', $class);
+			throw new Kohana_Exception('Class :class doesn\'t exists', array(':class' => $class));
 
 		if ( !method_exists($class, 'up') OR !method_exists($class, 'down') )
-			throw new Kohana_Exception('migrations.wrong_interface', $class);
+			throw new Kohana_Exception('Up or down functions missing on class :class', array(':class' => $class));
 
 		return new $class();
 	}

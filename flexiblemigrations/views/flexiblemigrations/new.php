@@ -1,12 +1,12 @@
-<? $message = Session::instance()->get('message',false); ?>
-<? Session::instance()->delete('message'); ?>
-<? if ($message) { ?> 
-  <div class="message"><?=$message?></div>
-<? } ?>
+<?php $message = Session::instance()->get('message',false); ?>
+<?php Session::instance()->delete('message'); ?>
+<?php if ($message) { ?> 
+  <div class="message"><?php echo $message?></div>
+<?php } ?>
 
 <div>Create New Migration</div>
 
-<form method="post" action="/<?= Route::get('migrations_create')->uri() ?>">
+<form method="post" action="/<?php echo Route::get('migrations_create')->uri() ?>">
   <?php echo  Form::input('migration_name') ?>
   <?php echo  Form::submit('submit','Create Migration') ?>
 </form>

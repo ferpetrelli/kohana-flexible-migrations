@@ -8,6 +8,8 @@ Run the migrations.sql script on your server
 
 IMPORTANT: Grant write privileges to application/migrations folder
 
+ENABLE ORM MODULE!!!!!
+
 
 
 
