@@ -10,9 +10,9 @@
   </head>
   <body>
     <div id="migrations">
-      <? if (isset($view)) { ?> 
-        <?= $view ?>
-      <? } ?>
+      <?php if (isset($view)) { ?> 
+        <?php echo $view ?>
+      <?php } ?>
     </div>
   </body>
 </html>

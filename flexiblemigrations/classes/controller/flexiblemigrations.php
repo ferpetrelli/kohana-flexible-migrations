@@ -36,7 +36,7 @@ class Controller_FlexibleMigrations extends Kohana_Controller_Template {
 		$this->view = new View('flexiblemigrations/index');
 		$this->view->set_global('migrations', $migrations);
 		$this->view->set_global('migrations_runned', $migrations_runned);
-		
+
 		$this->template->view = $this->view;
 	}
 
