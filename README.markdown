@@ -113,6 +113,6 @@ For Kohana < 3.2 versions please download 'kohana-legacy' branch instead of 'mas
 
 ## Contact
 
-To get some help or suggestions please write to fer.petrelli@gmail.com
+To get some help or suggestions please contact the author.
 
 
