@@ -13,7 +13,7 @@ Some features:
 * Due the naming convention for files, you can work on teams without concerns!
 * Nice web interface
 
-## Getting started
+## Installation
 
 1) Download module, and copy the folder to your modules directory. (e.g. modules/flexiblemigrations)
 
@@ -57,8 +57,11 @@ class typical_migration extends Migration
       'table_name',
       array
       (
-        'updated_at'          => array('datetime'),
-        'created_at'          => array('datetime'),
+        'published'             => array('boolean'),
+        'published_at'          => array('datetime'),
+        'user_id'               => array('integer'),
+        'image_file_name'       => array('string[255]'),
+        'full_description'      => array('text'),
       )
     );
 
@@ -68,7 +71,6 @@ class typical_migration extends Migration
   public function down()
   {
     $this->drop_table('table_name');
-
     $this->remove_column('another_table_name', 'column_name');
   }
 }
@@ -98,6 +100,24 @@ add_index($table_name, $index_name, $columns, $index_type = 'normal')
 remove_index($table_name, $index_name)
 ```
 
+Possible DB columns datatypes are: *
+
+```php
+text
+string[NumberOfCharacters]
+decimal
+integer
+datetime
+date
+boolean
+float
+timestamp
+time
+binary
+```
+
+In all cases you can pass the default value (see file example above)
+
 ## Legacy versions
 
 For Kohana < 3.2 versions please download 'kohana-legacy' branch instead of 'master'.
@@ -106,13 +126,14 @@ For Kohana < 3.2 versions please download 'kohana-legacy' branch instead of 'mas
 
 * Improve web interface
 * Code refactor
-* Code comments
+* More code comments
 * Console support
 * Support several DB engines (Postgre, Oracle, etc)
 * Bug fixing
+* Improve documentation
 
 ## Contact
 
-To get some help or suggestions please contact the author.
+To get some help or give suggestions please contact the author.
 
 
