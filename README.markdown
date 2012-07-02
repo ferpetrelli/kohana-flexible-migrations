@@ -7,8 +7,8 @@ It's based on kohana-migrations module by Matías Montes and Jamie Madill.
 Some features:
 
 * Kohana 3.2 compatibility
+* Automatic migration file generation
 * Solves the problem with migrations numbers using a timestamp instead of a integer
-* Migration generation with one click
 * Supports migrations and rollbacks
 * Due the naming convention for files, you can work on teams without concerns!
 * Nice web interface
@@ -35,7 +35,7 @@ Some features:
 
 1) Click on 'Generate NEW migration' you can set a name and create a new migration file.
 
-E.g. for a migration called 'typical migration' the generated file could be:
+E.g. for a migration called 'typical migration' generated file could be:
 
 ```
 20120526170715_typical_migration.php
@@ -77,9 +77,9 @@ class typical_migration extends Migration
 ?>
 ```
 
-3) When you finish editing, simply click on 'Run all pending migrations'. If you made a mistake, click on 'Rollback'
+3) When you finish editing, simply click on 'Run all pending migrations'. If you made a mistake, click on 'Rollback'.
 
-Enjoy!
+*Enjoy!*
 
 
 ## Migration functions
@@ -126,14 +126,14 @@ For Kohana < 3.2 versions please download 'kohana-legacy' branch instead of 'mas
 
 * Improve web interface
 * Code refactor
-* More code comments
 * Console support
 * Support several DB engines (Postgre, Oracle, etc)
-* Bug fixing
-* Improve documentation
 
 ## Contact
 
+*All your contributions are welcome!!! Just make a pull request*
+
 To get some help or give suggestions please contact the author.
+
 
 
