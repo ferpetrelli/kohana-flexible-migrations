@@ -14,7 +14,7 @@
  */
 
 
-class Controller_FlexibleMigrations extends Kohana_Controller_Template {
+class Controller_Flexiblemigrations extends Kohana_Controller_Template {
 
   public $template = 'migrations';
   protected $view;
@@ -25,7 +25,7 @@ class Controller_FlexibleMigrations extends Kohana_Controller_Template {
 		$this->migrations = new Flexiblemigrations(TRUE);
 		try 
 		{
-			$this->model = ORM::factory('migration');
+			$this->model = ORM::factory('Migration');
 		} 
 		catch (Database_Exception $a) 
 		{
@@ -53,7 +53,7 @@ class Controller_FlexibleMigrations extends Kohana_Controller_Template {
 		rsort($migrations);
 
 		//Find the migrations already runned from the DB
-		$migrations_runned = ORM::factory('migration')->find_all()->as_array('hash');
+		$migrations_runned = ORM::factory('Migration')->find_all()->as_array('hash');
 
 		$this->view = new View('flexiblemigrations/index');
 		$this->view->set_global('migrations', $migrations);
@@ -92,13 +92,14 @@ class Controller_FlexibleMigrations extends Kohana_Controller_Template {
 
 			//Sets a status message
 			$session->set('message', "Migration ".$migration_name." was succefully created. Please Edit.");
-		  $this->request->redirect(url::base().Route::get('migrations_route')->uri());
+		 
     } 
     catch (Exception $e) 
     { 
 			$session->set('message',  $e->getMessage());
-    	$this->request->redirect(url::base().Route::get('migrations_new')->uri());
 	  }
+
+	 $this->redirect(URL::base().Route::get('migrations_route')->uri());
 	}
 
 	public function action_migrate() 

@@ -6,7 +6,6 @@
 // Enabling the Userguide module from my Module
 // Kohana::modules(Kohana::modules() + array('userguide' => MODPATH.'userguide'));
 
-
 Route::set('migrations_route', 'migrations')
 	->defaults(array(
 		'controller' => 'flexiblemigrations',

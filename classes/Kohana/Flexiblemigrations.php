@@ -66,7 +66,7 @@ class Kohana_Flexiblemigrations
 		{
 			echo "Nothing to migrate";
 		}
-		echo html::anchor( Route::get('migrations_route')->uri() , "<br>Back");
+		echo HTML::anchor( Route::get('migrations_route')->uri() , "<br>Back");
 	}
 
 	/**
@@ -95,7 +95,7 @@ class Kohana_Flexiblemigrations
 		{
 			echo "Nothing to do.";
 		}
-		echo html::anchor( Route::get('migrations_route')->uri() , "<br>Back");
+		echo HTML::anchor( Route::get('migrations_route')->uri() , "<br>Back");
 	}
 
 	/**
