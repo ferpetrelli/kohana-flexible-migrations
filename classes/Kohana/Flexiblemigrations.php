@@ -52,6 +52,8 @@ class Kohana_Flexiblemigrations
 		{
 			foreach ($migration_keys as $key => $value) 
 			{
+				$msg = "Executing migration: '" . $value . "' with hash: " .$key;
+				
 				try 
 				{
 					$migration_object = $this->load_migration($key);
@@ -60,13 +62,13 @@ class Kohana_Flexiblemigrations
 					$model->hash = $key;
 					$model->name = $value;
 					$model->save();
-					$msg = "Executing migration: '" . $value . "' with hash: " .$key;
 					$model ? $messages[] = array(0 => $msg) : $messages[] = array(1 => $msg);
 				}
-				catch (Exception $e) 
+				catch (Database_Exception $e)
 				{
-					$messages[] = array(1 => $e->getMessage());
+					$messages[] = array(1 => $msg . "\n" . $e->getMessage());	
 				}
+				
 			}
 		}
 
