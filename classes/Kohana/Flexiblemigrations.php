@@ -11,8 +11,8 @@
  *
  * @package		Flexiblemigrations
  * @author 		Matías Montes
- * @author    Jamie Madill
- * @author    Fernando Petrelli
+ * @author 		Jamie Madill
+ * @author    	Fernando Petrelli
  */
 
 class Kohana_Flexiblemigrations
@@ -36,7 +36,8 @@ class Kohana_Flexiblemigrations
 	public function migrate() 
 	{
 		$migration_keys = $this->get_migration_keys();
-		$migrations = ORM::factory('migration')->find_all();
+		$migrations 	= ORM::factory('migration')->find_all();
+		$messages		= array();
 
 		//Remove executed migrations from queue
 		foreach ($migrations as $migration) 
@@ -51,22 +52,25 @@ class Kohana_Flexiblemigrations
 		{
 			foreach ($migration_keys as $key => $value) 
 			{
-				echo "Executing migration: '" . $value . "' with hash: " .$key;
-				
-				$migration_object = $this->load_migration($key);
-				$migration_object->up();
-				$model = ORM::factory('migration');
-				$model->hash = $key;
-				$model->name = $value;
-				$model->save();
-				echo $model ? '<span class="ok">OK</span>' : '<span class="error">ERROR</span>';
+				try 
+				{
+					$migration_object = $this->load_migration($key);
+					$migration_object->up();
+					$model = ORM::factory('migration');
+					$model->hash = $key;
+					$model->name = $value;
+					$model->save();
+					$msg = "Executing migration: '" . $value . "' with hash: " .$key;
+					$model ? $messages[] = array(0 => $msg) : $messages[] = array(1 => $msg);
+				}
+				catch (Exception $e) 
+				{
+					$messages[] = array(1 => $e->getMessage());
+				}
 			}
-		} 
-		else 
-		{
-			echo "Nothing to migrate";
 		}
-		echo HTML::anchor( Route::get('migrations_route')->uri() , "<br>Back");
+
+		return $messages;
 	}
 
 	/**
@@ -76,26 +80,36 @@ class Kohana_Flexiblemigrations
 	public function rollback() 
 	{
 		//Get last executed migration
-		$model = ORM::factory('migration')->order_by('created_at','DESC')->order_by('hash','DESC')->limit(1)->find();
+		$model		= ORM::factory('migration')->order_by('created_at','DESC')->order_by('hash','DESC')->limit(1)->find();
+		$messages	= array();
 
 		if ($model->loaded()) 
 		{
-			$migration_object = $this->load_migration($model->hash);
-			$migration_object->down();
-			if ($model) 
+			try 
 			{
-				echo "Migration '" . $model->name . "' with hash: " . $model->hash . ' was succefully "rollbacked"';
-			} else {
-				echo "ERROR WHEN ROLLBACK";
+				$migration_object = $this->load_migration($model->hash);
+				$migration_object->down();
+
+				if ($model) 
+				{
+					$msg = "Migration '" . $model->name . "' with hash: " . $model->hash . ' was succefully "rollbacked"';
+					$messages[] = array(0 => $msg);
+				} else {
+					$messages[] = array(1 => "Error executing rollback");
+				}
+				$model->delete();
 			}
-			echo "<br>";
-			$model->delete();
-		} 
+			catch (Exception $e) 
+			{
+				$messages[] = array(1 => $e->getMessage());
+			}
+		}
 		else 
 		{
-			echo "Nothing to do.";
+			$messages[] = array(1 => "There's no migration to rollback");
 		}
-		echo HTML::anchor( Route::get('migrations_route')->uri() , "<br>Back");
+
+		return $messages;
 	}
 
 	/**
@@ -155,7 +169,7 @@ class Kohana_Flexiblemigrations
 			throw new Kohana_Exception('There are repeated migration names');
 
 		if ( count($f) == 0 ) // Migration step not found
-			throw new Kohana_Exception('Nothing to rollback');
+			throw new Kohana_Exception("There's no migration to rollback");
 
 		$file = basename($f[0]);
 		$name = basename($f[0], EXT);

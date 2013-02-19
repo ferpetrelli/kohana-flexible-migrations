@@ -1,10 +1,9 @@
 <h3>Flexible Migrations</h3>
 
-<?php  $message = Session::instance()->get('message',false); ?>
-<?php  Session::instance()->delete('message'); ?>
-<?php  if ($message) { ?> 
+<?php $message = Session::instance()->get_once('message',false); ?>
+<?php if ($message) { ?> 
   <div class="message"><?php echo $message?></div>
-<?php  } ?>
+<?php } ?>
 
 <div>
 	<?php echo  HTML::anchor( Route::get('migrations_new')->uri() , 'Generate NEW migration') ?>

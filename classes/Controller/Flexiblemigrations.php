@@ -36,17 +36,6 @@ class Controller_Flexiblemigrations extends Kohana_Controller_Template {
 		parent::before();
 	}
 
-	public function after()
-	{
-		$message = Session::instance()->get('message',false);
-		if ($message) {
-			$this->view->set_global('message', $message);
-			Session::instance()->delete('message');
-		}
-
-		parent::after();
-	}
-
 	public function action_index() 
 	{
 		$migrations=$this->migrations->get_migrations();
@@ -75,61 +64,48 @@ class Controller_Flexiblemigrations extends Kohana_Controller_Template {
 		
 		try 
 		{
-      if (empty($migration_name)) 
-      	throw new Exception("Migration mame must not be empty");
+      		if (empty($migration_name)) 
+      			throw new Exception("Migration mame must not be empty");
 
-      //Creates the migration file with the timestamp and the name from params
-      $file_name = $this->migrations->get_timestamp(). '_' . $migration_name . '.php';
-      $config = $this->migrations->get_config();
-      $file = fopen($config['path'].$file_name, 'w+');
-      
-      //Opens the template file and replaces the name
-      $view = new View('migration_template');
-      $view->set_global('migration_name', $migration_name);
-      fwrite($file, $view);
-      fclose($file);
-      chmod($config['path'].$file_name, 0770);
+			//Creates the migration file with the timestamp and the name from params
+			$file_name 	= $this->migrations->get_timestamp(). '_' . $migration_name . '.php';
+			$config 	= $this->migrations->get_config();
+			$file 		= fopen($config['path'].$file_name, 'w+');
+			
+			//Opens the template file and replaces the name
+			$view = new View('migration_template');
+			$view->set_global('migration_name', $migration_name);
+			fwrite($file, $view);
+			fclose($file);
+			chmod($config['path'].$file_name, 0770);
 
 			//Sets a status message
-			$session->set('message', "Migration ".$migration_name." was succefully created. Please Edit.");
-		 
-    } 
-    catch (Exception $e) 
-    { 
+			$session->set('message', "Migration ".$migration_name." was succefully created. Check migrations folder");
+	    } 
+	    catch (Exception $e) 
+	    { 
 			$session->set('message',  $e->getMessage());
-	  }
+		}
 
-	 $this->redirect(URL::base().Route::get('migrations_route')->uri());
+	 	$this->redirect(URL::base().Route::get('migrations_route')->uri());
 	}
 
 	public function action_migrate() 
 	{
 		$this->view = new View('flexiblemigrations/migrate');
 		$this->template->view = $this->view;
-		try 
-		{
-			$this->migrations->migrate();
-		} 
-		catch (Exception $e) 
-		{
-			echo $e->getMessage();
-			exit();
-		}
+	
+		$messages = $this->migrations->migrate();
+		$this->view->set_global('messages', $messages);
 	}
 
 	public function action_rollback() 
 	{
 		$this->view = new View('flexiblemigrations/rollback');
 		$this->template->view = $this->view;
-		try 
-		{
-			$this->migrations->rollback();
-		} 
-		catch (Exception $e) 
-		{
-			echo $e->getMessage();
-			exit();
-		}
+
+		$messages = $this->migrations->rollback();
+		$this->view->set_global('messages', $messages);
 	}
 
 }

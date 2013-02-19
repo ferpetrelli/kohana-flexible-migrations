@@ -1,5 +1,4 @@
-<?php $message = Session::instance()->get('message',false); ?>
-<?php Session::instance()->delete('message'); ?>
+<?php $message = Session::instance()->get_once('message',false); ?>
 <?php if ($message) { ?> 
   <div class="message"><?php echo $message?></div>
 <?php } ?>
@@ -12,4 +11,4 @@
 </form>
 
 <br>
-<div>Please use only alphanumeric characters and spaces</div>
+<div>Please use only alphanumeric characters and spaces, and don't use php reserved words</div>
