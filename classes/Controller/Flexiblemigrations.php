@@ -41,7 +41,7 @@ class Controller_Flexiblemigrations extends Kohana_Controller_Template {
 		$migrations=$this->migrations->get_migrations();
 		rsort($migrations);
 
-		//Find the migrations already runned from the DB
+		//Get migrations already runned from the DB
 		$migrations_runned = ORM::factory('Migration')->find_all()->as_array('hash');
 
 		$this->view = new View('flexiblemigrations/index');
@@ -67,17 +67,7 @@ class Controller_Flexiblemigrations extends Kohana_Controller_Template {
       		if (empty($migration_name)) 
       			throw new Exception("Migration mame must not be empty");
 
-			//Creates the migration file with the timestamp and the name from params
-			$file_name 	= $this->migrations->get_timestamp(). '_' . $migration_name . '.php';
-			$config 	= $this->migrations->get_config();
-			$file 		= fopen($config['path'].$file_name, 'w+');
-			
-			//Opens the template file and replaces the name
-			$view = new View('migration_template');
-			$view->set_global('migration_name', $migration_name);
-			fwrite($file, $view);
-			fclose($file);
-			chmod($config['path'].$file_name, 0770);
+			$this->migrations->generate_migration($migration_name);
 
 			//Sets a status message
 			$session->set('message', "Migration ".$migration_name." was succefully created. Check migrations folder");

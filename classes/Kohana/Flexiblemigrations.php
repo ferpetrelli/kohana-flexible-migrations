@@ -68,10 +68,8 @@ class Kohana_Flexiblemigrations
 				{
 					$messages[] = array(1 => $msg . "\n" . $e->getMessage());	
 				}
-				
 			}
 		}
-
 		return $messages;
 	}
 
@@ -140,6 +138,34 @@ class Kohana_Flexiblemigrations
 		sort($migrations);
 		return $migrations;
 	}
+
+	/**
+	 * Generates a new migration file
+	 *
+	 * @return integer completion_code
+	 */
+	public function generate_migration($migration_name)	
+	{
+		try
+		{
+			//Creates the migration file with the timestamp and the name from params
+			$file_name 	= $this->get_timestamp(). '_' . $migration_name . '.php';
+			$config 	= $this->get_config();
+			$file 		= fopen($config['path'].$file_name, 'w+');
+			
+			//Opens the template file and replaces the name
+			$view = new View('migration_template');
+			$view->set_global('migration_name', $migration_name);
+			fwrite($file, $view);
+			fclose($file);
+			chmod($config['path'].$file_name, 0770);
+			return 0;
+		}
+		catch (Exception $e)
+		{
+			return 1;
+		}
+	}	
 
 	/**
 	 * Get all migration keys (timestamps)
