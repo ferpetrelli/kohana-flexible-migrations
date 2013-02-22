@@ -4,7 +4,7 @@
 class Task_Db_Rollback extends Minion_Task
 {
     /**
-     * Task to run pending migrations
+     * Task to rollback last executed migration
      *
      * @return null
      */
@@ -17,21 +17,21 @@ class Task_Db_Rollback extends Minion_Task
         } 
         catch (Database_Exception $a) 
         {
-            echo 'Flexible Migrations is not installed. Please Run the migrations.sql script in your mysql server';
+            Minion_CLI::write('Flexible Migrations is not installed. Please Run the migrations.sql script in your mysql server');
             exit();
         }
 
         $messages = $migrations->rollback();
 
         if (empty($messages)) { 
-            echo "There's no migration to rollback\n";
+            Minion_CLI::write("There's no migration to rollback");
         } else {
             foreach ($messages as $message) {
                 if (key($message) == 0) { 
-                    echo $message[0] . "\n";
+                    Minion_CLI::write($message[0]);
                 } else { 
-                    echo $message[key($message)] . "\n";
-                    echo "ERROR\n";
+                    Minion_CLI::write($message[key($message)]);
+                    Minion_CLI::write("ERROR");
                 }
             }
         }

@@ -17,22 +17,22 @@ class Task_Db_Migrate extends Minion_Task
         } 
         catch (Database_Exception $a) 
         {
-            echo 'Flexible Migrations is not installed. Please Run the migrations.sql script in your mysql server';
+            Minion_CLI::write('Flexible Migrations is not installed. Please Run the migrations.sql script in your mysql server');
             exit();
         }
 
         $messages = $migrations->migrate();
 
         if (empty($messages)) { 
-            echo "Nothing to migrate \n";
+            Minion_CLI::write("Nothing to migrate");
         } else {
             foreach ($messages as $message) {
                 if (key($message) == 0) { 
-                    echo $message[0] . "\n";
-                    echo "OK\n";
+                    Minion_CLI::write($message[0]);
+                    Minion_CLI::write("OK");
                 } else { 
-                    echo $message[key($message)] . "\n";
-                    echo "ERROR\n";
+                    Minion_CLI::write($message[key($message)]);
+                    Minion_CLI::write("ERROR");
                 }
             }
         }
