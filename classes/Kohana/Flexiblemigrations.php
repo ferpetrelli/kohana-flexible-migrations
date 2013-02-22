@@ -21,7 +21,7 @@ class Kohana_Flexiblemigrations
 
 	public function __construct()
 	{
-		$this->_config = Kohana::$config->load('flexiblemigrations')->as_array();
+		$this->_config = Kohana::$config->load('config')->as_array();
 	}
 
 	public function get_config() 
@@ -141,6 +141,7 @@ class Kohana_Flexiblemigrations
 
 	/**
 	 * Generates a new migration file
+	 * TODO: Probably needs to be in outer class
 	 *
 	 * @return integer completion_code
 	 */

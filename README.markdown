@@ -6,12 +6,19 @@ It's based on kohana-migrations module by Matías Montes and Jamie Madill.
 
 Some features:
 
-* Kohana 3.2 compatibility
+* Kohana 3.1, 3.2 and 3.3 compatibility
 * Automatic migration file generation
+* Minion tasks to generate migrations, execute and rollback them.
 * Solves the problem with migrations numbers using a timestamp instead of a integer
 * Supports migrations and rollbacks
 * Due the naming convention for files, you can work on teams without concerns!
 * Nice web interface
+
+## Compatibility
+
+**Kohana < 3.2 ** please download 'kohana-legacy' branch
+**Kohana 3.2   ** please download 'kohana_3.2' branch
+**Kohana 3.3   ** 'master' branch
 
 ## Installation
 
@@ -28,10 +35,30 @@ Some features:
 
 4) Create and grant WRITE privileges to /application/migrations folder
 
+## Configuration (optional)
+
+You can set some useful options inside config/config.php file:
+
+- Enable/Disable web frontend (to use only Minion tasks)
+```php
+'web_frontend' => TRUE
+```
+
+- If web frontend is enabled you can change their route
+```php
+'web_frontend_route' => 'migrations',
+```
+
+- Path where migration files are going to be generated
+```php
+'path' => APPPATH . 'migrations/'
+```
 
 ## Usage
 
-*Enter url: yoursite/migrations and that's it! you will see a nice web interface with a menu.*
+**COMMAND LINE INTERFACE (Minion tasks):** Go ahead to sub-section "Minion tasks"
+
+**WEB FRONTEND:** Go to url: yoursite/migrations (or your route if you've changed it on config.php file) and that's it! you will see a nice web interface with a menu.
 
 1) Click on 'Generate NEW migration' you can set a name and create a new migration file.
 
@@ -41,7 +68,7 @@ E.g. for a migration called 'typical migration' generated file could be:
 20120526170715_typical_migration.php
 ```
 
-2) Edit your file and add the DB functions
+2) Edit your file and add the DB functions. (Remember to properly set up() and down() functions)
 
 
 A typical migration file looks like:
@@ -81,6 +108,22 @@ class typical_migration extends Migration
 
 *Enjoy!*
 
+## Minion tasks - CLI
+
+To generate a new migration:
+```
+./minion generate:migration --name=MIGRATION_NAME
+```
+
+To run all pending migrations
+```
+./minion db:migrate
+```
+
+To rollback last executed migration
+```
+./minion db:migrate
+```
 
 ## Migration functions
 
@@ -102,7 +145,7 @@ remove_index($table_name, $index_name)
 
 Possible DB columns datatypes are: *
 
-```php
+```
 text
 string[NumberOfCharacters]
 decimal
@@ -116,11 +159,7 @@ time
 binary
 ```
 
-In all cases you can pass the default value (see file example above)
-
-## Legacy versions
-
-For Kohana < 3.2 versions please download 'kohana-legacy' branch instead of 'master'.
+In all cases you can pass a default value (see file example above)
 
 ## To do
 
