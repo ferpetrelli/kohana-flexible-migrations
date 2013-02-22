@@ -16,9 +16,11 @@ Some features:
 
 ## Compatibility
 
-**Kohana < 3.2 ** please download 'kohana-legacy' branch
-**Kohana 3.2   ** please download 'kohana_3.2' branch
-**Kohana 3.3   ** 'master' branch
+**Kohana < 3.2** please download 'kohana-legacy' branch
+
+**Kohana 3.2** please download 'kohana_3.2' branch
+
+**Kohana 3.3** 'master' branch
 
 ## Installation
 
@@ -122,7 +124,7 @@ To run all pending migrations
 
 To rollback last executed migration
 ```
-./minion db:migrate
+./minion db:rollback
 ```
 
 ## Migration functions
@@ -163,9 +165,8 @@ In all cases you can pass a default value (see file example above)
 
 ## To do
 
-* Improve web interface
 * Code refactor
-* Console support
+* Improve minion tasks to generate
 * Support several DB engines (Postgre, Oracle, etc)
 
 ## Contact
