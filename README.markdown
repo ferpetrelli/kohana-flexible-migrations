@@ -165,8 +165,9 @@ In all cases you can pass a default value (see file example above)
 
 ## To do
 
+* Full documentation
 * Code refactor
-* Improve minion tasks to generate
+* Improve minion tasks
 * Support several DB engines (Postgre, Oracle, etc)
 
 ## Contact
