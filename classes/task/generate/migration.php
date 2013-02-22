@@ -26,7 +26,7 @@ class Task_Generate_Migration extends Minion_Task
         } 
         catch (Database_Exception $a) 
         {
-            echo 'Flexible Migrations is not installed. Please Run the migrations.sql script in your mysql server';
+            Minion_CLI::write('Flexible Migrations is not installed. Please Run the migrations.sql script in your mysql server');
             exit();
         }
 
@@ -34,12 +34,12 @@ class Task_Generate_Migration extends Minion_Task
 
         if ($status == 0) 
         { 
-            echo 'Migration ' . $params['name'] . " was succefully created\n";
-            echo "Please check migrations folder\n";
+            Minion_CLI::write('Migration ' . $params['name'] . ' was succefully created');
+            Minion_CLI::write('Please check migrations folder');
         } 
         else 
         {
-            echo 'There was an error while creating migration ' . $params['name'];
+            Minion_CLI::write('There was an error while creating migration ' . $params['name']);
         }
     }
 }

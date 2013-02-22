@@ -1,7 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-$migrations_class   = new Flexiblemigrations(TRUE);
-$migrations_config  = $migrations_class->get_config();
+$migrations_config = Kohana::$config->load('config')->as_array();
 
 // Enabling the Userguide module from my Module
 // Kohana::modules(Kohana::modules() + array('userguide' => MODPATH.'userguide'));
