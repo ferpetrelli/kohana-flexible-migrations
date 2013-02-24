@@ -36,6 +36,13 @@ class Controller_Flexiblemigrations extends Kohana_Controller_Template {
 		parent::before();
 	}
 
+	public function after()
+	{
+		$this->view->set_global('session_message', Session::instance()->get('message',false));
+		Session::instance()->delete('message');
+		parent::after();
+	}
+
 	public function action_index() 
 	{
 		$migrations=$this->migrations->get_migrations();

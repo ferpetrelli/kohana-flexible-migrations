@@ -6,7 +6,7 @@ It's based on kohana-migrations module by Matías Montes and Jamie Madill.
 
 Some features:
 
-* Kohana 3.1, 3.2 and 3.3 compatibility
+* Kohana 3.0, 3.1, 3.2 and 3.3 compatibility
 * Automatic migration file generation
 * Minion tasks to generate migrations, execute and rollback them.
 * Solves the problem with migrations numbers using a timestamp instead of a integer
@@ -16,11 +16,12 @@ Some features:
 
 ## Compatibility
 
-**Kohana < 3.2** please download 'kohana-legacy' branch
-
-**Kohana 3.2** please download 'kohana_3.2' branch
-
 **Kohana 3.3** 'master' branch
+**Kohana 3.2** download 'kohana_3.2' branch
+**Kohana 3.1** download 'kohana_3.1' branch
+**Kohana 3.0** download 'kohana_3.0' branch
+
+NOTE: Minion tasks doesn't work using kohana 3.0
 
 ## Installation
 
@@ -111,6 +112,8 @@ class typical_migration extends Migration
 *Enjoy!*
 
 ## Minion tasks - CLI
+
+NOTE: Works only on kohana 3.1, 3.2, and 3.3 versions.
 
 To generate a new migration:
 ```

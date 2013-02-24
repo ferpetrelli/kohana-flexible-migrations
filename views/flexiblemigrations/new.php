@@ -1,6 +1,5 @@
-<?php $message = Session::instance()->get_once('message',false); ?>
-<?php if ($message) { ?> 
-  <div class="message"><?php echo $message?></div>
+<?php if ($session_message) { ?> 
+  <div class="message"><?php echo $session_message?></div>
 <?php } ?>
 
 <div>Create New Migration</div>
