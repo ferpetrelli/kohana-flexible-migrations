@@ -4,7 +4,7 @@
 class Task_Db_Rollback extends Minion_Task
 {
     /**
-     * Task to run pending migrations
+     * Task to rollback last executed migration
      *
      * @return null
      */
