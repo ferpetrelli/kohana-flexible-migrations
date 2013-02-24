@@ -17,8 +17,11 @@ Some features:
 ## Compatibility
 
 **Kohana 3.3** 'master' branch
+
 **Kohana 3.2** download 'kohana_3.2' branch
+
 **Kohana 3.1** download 'kohana_3.1' branch
+
 **Kohana 3.0** download 'kohana_3.0' branch
 
 NOTE: Minion tasks doesn't work using kohana 3.0
