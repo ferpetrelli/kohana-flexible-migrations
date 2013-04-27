@@ -15,7 +15,7 @@
  *
  * @package		Migrations
  * @author		Matías Montes
- * @author      Jamie Madill
+ * @author    Jamie Madill
  */
 
 class Migration

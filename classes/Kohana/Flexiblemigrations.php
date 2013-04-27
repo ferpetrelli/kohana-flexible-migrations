@@ -12,7 +12,7 @@
  * @package		Flexiblemigrations
  * @author 		Matías Montes
  * @author 		Jamie Madill
- * @author    	Fernando Petrelli
+ * @author    Fernando Petrelli
  */
 
 class Kohana_Flexiblemigrations
@@ -64,9 +64,10 @@ class Kohana_Flexiblemigrations
 					$model->save();
 					$model ? $messages[] = array(0 => $msg) : $messages[] = array(1 => $msg);
 				}
-				catch (Database_Exception $e)
+				catch (Exception $e)
 				{
-					$messages[] = array(1 => $msg . "\n" . $e->getMessage());	
+					$messages[] = array(1 => $msg . "\n" . $e->getMessage());
+					return $messages;
 				}
 			}
 		}

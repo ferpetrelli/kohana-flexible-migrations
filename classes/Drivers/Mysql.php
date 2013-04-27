@@ -99,7 +99,7 @@ class Drivers_Mysql extends Drivers_Driver
 			case 'unique':   $type = 'UNIQUE'; break;
 			case 'primary':  $type = 'PRIMARY'; break;
 			
-			default: throw new Exception('migrations.bad_index_type', $index_type);
+			default: throw new Kohana_Exception('migrations.bad_index_type :index_type', array(':index_type' => $index_type));
 		}
 		
 		$sql = "ALTER TABLE `$table_name` ADD $type INDEX `$index_name` (";
@@ -154,7 +154,7 @@ class Drivers_Mysql extends Drivers_Driver
 					    }
 					  break;
 					case 'auto':    $auto = (bool) $param; break;
-					default: throw new Kohana_Exception('migrations.bad_column', $key);
+					default: throw new Kohana_Exception('migrations.bad_column :key', array(':key' => $key));
 				}
 				continue; // next iteration
 			}
@@ -181,7 +181,7 @@ class Drivers_Mysql extends Drivers_Driver
 				default: break;
 			}
 
-			throw new Kohana_Exception('migrations.bad_column', $param);
+			throw new Kohana_Exception('migrations.bad_column :column', array(':column' => $column));
 		}
 
 		if (empty($type))
@@ -207,7 +207,7 @@ class Drivers_Mysql extends Drivers_Driver
 
 		if ($result->count() !== 1)
 		{
-			throw new Kohana_Exception('migrations.column_not_found', $column_name, $table_name);
+			throw new Kohana_Exception('migrations.column_not_found :col_name, :table_name', array(':col_name' => $column_name, ':table_name' => $table_name));
 		}
 		
 		$result = $result->current();
@@ -242,7 +242,7 @@ class Drivers_Mysql extends Drivers_Driver
 	{
 		if (!$this->is_type($type))
 		{
-			throw new Kohana_Exception('migrations.unknown_type', $type);
+			throw new Kohana_Exception('migrations.unknown_type :type', array(':type' => $type));
 		}
 		
  		if (empty($limit))
@@ -260,7 +260,7 @@ class Drivers_Mysql extends Drivers_Driver
 					case 'small':  return 'smallint';
 					default: break;
 				}
-				throw new Kohana_Exception('migrations.unknown_type', $type);
+				throw new Kohana_Exception('migrations.unknown_type :type', array(':type' => $type));
 				
 			case 'string': return "varchar ($limit)";
 			case 'boolean': return 'tinyint (1)';
@@ -288,7 +288,7 @@ class Drivers_Mysql extends Drivers_Driver
 		
 		if (!$this->is_type($native))
 		{
-			throw new Kohana_Exception('migrations.unknown_type', $type);
+			throw new Kohana_Exception('migrations.unknown_type :type', array(':type' => $type));
 		}
 		
 		return $native . "[$limit]";

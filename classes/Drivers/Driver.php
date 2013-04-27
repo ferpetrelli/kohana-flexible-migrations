@@ -161,18 +161,7 @@ abstract class Drivers_Driver
 	 */
 	public function run_query($sql)
 	{
-		try
-		{
-			$test = $this->db->query($this->group, $sql, false);
-		}
-		catch (Kohana_Database_Exception $e)
-		{
-			// Kohana::log('error', 'Migration Failed: ' . $e);
-			echo $e->getMessage();
-			exit();
-			return FALSE;
-		}
-		return TRUE;
+		$test = $this->db->query($this->group, $sql, false);
 	}
 
 	/**
