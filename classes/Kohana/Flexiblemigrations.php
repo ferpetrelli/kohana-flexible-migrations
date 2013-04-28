@@ -21,7 +21,7 @@ class Kohana_Flexiblemigrations
 
 	public function __construct()
 	{
-		$this->_config = Kohana::$config->load('config')->as_array();
+		$this->_config = Kohana::$config->load('flexiblemigrations')->as_array();
 	}
 
 	public function get_config() 
