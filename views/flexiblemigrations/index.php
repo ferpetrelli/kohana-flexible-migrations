@@ -6,16 +6,16 @@
 <?php } ?>
 
 <div>
-	<?php echo  HTML::anchor( Route::get('migrations_new')->uri() , 'Generate NEW migration') ?>
+	<?php echo  HTML::anchor( URL::base().Route::get('migrations_route')->uri(array('action' => 'new')) , 'Generate NEW migration') ?>
 </div>
 <br>
 
 <div>
-  <?php echo  HTML::anchor( Route::get('migrations_migrate')->uri() , 'RUN ALL PENDING MIGRATIONS') ?>
+  <?php echo  HTML::anchor( URL::base().Route::get('migrations_route')->uri(array('action' => 'migrate')) , 'RUN ALL PENDING MIGRATIONS') ?>
 </div>
 
 <div>
-  <?php echo  HTML::anchor( Route::get('migrations_rollback')->uri() , 'ROLLBACK') ?>
+  <?php echo  HTML::anchor( URL::base().Route::get('migrations_route')->uri(array('action' => 'rollback')) , 'ROLLBACK') ?>
 </div>
 
 <div><h2>List of migrations</h2></div>
@@ -45,5 +45,5 @@
 <br>
 
 <div>
-	<?php echo  HTML::anchor( Route::get('migrations_new')->uri() , 'Generate NEW migration') ?>
+	<?php echo  HTML::anchor( URL::base().Route::get('migrations_route')->uri(array('action' => 'new')) , 'Generate NEW migration') ?>
 </div>
