@@ -43,7 +43,7 @@ NOTE: Minion tasks doesn't work using kohana 3.0
 
 ## Configuration (optional)
 
-You can set some useful options inside config/config.php file:
+You can set some useful options inside config/flexiblemigrations.php file:
 
 - Enable/Disable web frontend (to use only Minion tasks)
 ```php
@@ -64,7 +64,7 @@ You can set some useful options inside config/config.php file:
 
 **COMMAND LINE INTERFACE (Minion tasks):** Go ahead to sub-section "Minion tasks"
 
-**WEB FRONTEND:** Go to url: yoursite/migrations (or your route if you've changed it on config.php file) and that's it! you will see a nice web interface with a menu.
+**WEB FRONTEND:** Go to url: yoursite/migrations (or your route if you've changed it on config/flexiblemigrations.php file) and that's it! you will see a nice web interface with a menu.
 
 1) Click on 'Generate NEW migration' you can set a name and create a new migration file.
 
