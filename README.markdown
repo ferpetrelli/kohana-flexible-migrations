@@ -151,6 +151,11 @@ add_index($table_name, $index_name, $columns, $index_type = 'normal')
 remove_index($table_name, $index_name)
 ```
 
+There's a new function to run custom SQL. I discourage to use this, but it's useful in some edge cases. Use it at your own risk :)
+```php
+sql($sql_consult)
+```
+
 Possible DB columns datatypes are: *
 
 ```
