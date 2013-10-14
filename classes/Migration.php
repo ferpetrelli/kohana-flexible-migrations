@@ -231,9 +231,20 @@ class Migration
 		return $ret;
 	}
 
+	/**
+	 * Execute custom query
+	 *
+	 * @param   string  SQL query to execute
+	 * @return  bool
+	 */
+	public function sql($query)
+	{
+		return $this->driver->run_query($query);
+	}
+
 	public function commit()
-  {
+	{
 		$this->driver->run_query('COMMIT');
-  }	
+	}	
 
 }
