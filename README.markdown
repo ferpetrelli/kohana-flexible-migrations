@@ -187,5 +187,9 @@ In all cases you can pass a default value (see file example above)
 
 To get some help or give suggestions please contact the author.
 
+## License
+
+MIT License. Copyright 2012-2013 Fernando Petrelli.
+
 
 
