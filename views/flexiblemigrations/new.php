@@ -1,14 +1,14 @@
 <?php $message = Session::instance()->get_once('message',false); ?>
-<?php if ($message) { ?> 
+<?php if ($message) { ?>
   <div class="message"><?php echo $message?></div>
 <?php } ?>
 
 <div>Create New Migration</div>
 
-<form method="post" action="/<?php echo Route::get('migrations_create')->uri() ?>">
+<?php echo Form::open(Route::get('migrations_create')->uri()); ?>
   <?php echo  Form::input('migration_name') ?>
   <?php echo  Form::submit('submit','Create Migration') ?>
-</form>
+<?php echo Form::close(); ?>
 
 <br>
 <div>Please use only alphanumeric characters and spaces, and don't use php reserved words</div>
