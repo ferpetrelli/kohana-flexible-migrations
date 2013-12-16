@@ -147,6 +147,9 @@ rename_column($table_name, $column_name, $new_column_name)
 change_column($table_name, $column_name, $params)
 remove_column($table_name, $column_name)
 
+add_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name)
+remove_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name)
+
 add_index($table_name, $index_name, $columns, $index_type = 'normal')
 remove_index($table_name, $index_name)
 ```
