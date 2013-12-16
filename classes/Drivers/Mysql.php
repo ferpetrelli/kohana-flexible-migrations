@@ -129,6 +129,7 @@ class Drivers_Mysql extends Drivers_Driver
 		$params = (array) $params;
 		$null   = TRUE;
 		$auto   = FALSE;
+		$unsigned = FALSE;
 
 		foreach ($params as $key => $param)
 		{
@@ -154,6 +155,7 @@ class Drivers_Mysql extends Drivers_Driver
 					    }
 					  break;
 					case 'auto':    $auto = (bool) $param; break;
+					case 'unsigned': $unsigned = $param; break;
 					default: throw new Kohana_Exception('migrations.bad_column :key', array(':key' => $key));
 				}
 				continue; // next iteration
@@ -191,6 +193,9 @@ class Drivers_Mysql extends Drivers_Driver
 
 		$sql  = " `$field_name` $type ";
 
+		if ($unsigned) {
+			$sql .= ' UNSIGNED ';
+		}
 		isset($default)  and $sql .= " $default ";
 		$sql .= $null    ? ' NULL ' : ' NOT NULL ';
 		$sql .= $auto    ? ' AUTO_INCREMENT ' : '';
