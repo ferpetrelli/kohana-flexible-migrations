@@ -77,7 +77,7 @@ class Controller_Flexiblemigrations extends Kohana_Controller_Template {
 			$session->set('message',  $e->getMessage());
 		}
 
-	 	$this->request->redirect(URL::base().Route::get('migrations_route')->uri());
+	 	$this->request->redirect(Route::get('migrations_route')->uri());
 	}
 
 	public function action_migrate() 
