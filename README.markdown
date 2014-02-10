@@ -1,3 +1,5 @@
+**IMPORTANT NOTE: THIS VERSION IS NOT MANTAINED ANYMORE AS KOHANA TEAM HAS DROPPED SUPPORT FOR 3.1**
+
 ## Kohana Flexible Migrations
 
 Kohana Flexible migrations is a Rails inspired migration module for kohana.
