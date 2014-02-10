@@ -1,5 +1,5 @@
 <?php $message = Session::instance()->get_once('message',false); ?>
-<?php if ($message) { ?> 
+<?php if ($message) { ?>
   <div class="message"><?php echo $message?></div>
 <?php } ?>
 
