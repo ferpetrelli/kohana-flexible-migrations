@@ -92,7 +92,8 @@ class typical_migration extends Migration
       (
         'published'             => array('boolean'),
         'published_at'          => array('datetime'),
-        'user_id'               => array('integer'),
+        'user_id'               => array('integer', 'unsigned' => TRUE),
+        'points'                => array('integer'),
         'image_file_name'       => array('string[255]'),
         'full_description'      => array('text'),
       )
@@ -189,7 +190,7 @@ To get some help or give suggestions please contact the author.
 
 ## License
 
-MIT License. Copyright 2012-2013 Fernando Petrelli.
+MIT License. Copyright 2012-2014 Fernando Petrelli.
 
 
 
