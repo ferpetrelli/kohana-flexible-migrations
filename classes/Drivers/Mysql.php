@@ -95,14 +95,14 @@ class Drivers_Mysql extends Drivers_Driver
 	{
 		switch ($index_type)
 		{
-			case 'normal':   $type = ''; break;
-			case 'unique':   $type = 'UNIQUE'; break;
-			case 'primary':  $type = 'PRIMARY'; break;
+			case 'normal':   $type = 'INDEX'; break;
+			case 'unique':   $type = 'UNIQUE KEY'; break;
+			case 'primary':  $type = 'PRIMARY KEY'; break;
 			
 			default: throw new Kohana_Exception('migrations.bad_index_type :index_type', array(':index_type' => $index_type));
 		}
 		
-		$sql = "ALTER TABLE `$table_name` ADD $type INDEX `$index_name` (";
+		$sql = "ALTER TABLE `$table_name` ADD $type `$index_name` (";
 		
 		foreach ((array) $columns as $column)
 		{
