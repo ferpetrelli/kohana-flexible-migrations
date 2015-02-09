@@ -88,6 +88,9 @@ class Migration
 	 * 				'date' => 'date',
 	 * 				'content' => 'text'
 	 * 			),
+	 * 			array (
+	 * 				'engine' => 'InnoDB',
+	 * 			)
 	 * 		)
 	 *
 	 * @param	string   Name of the table to be created
@@ -96,10 +99,10 @@ class Migration
 	 *                   Will be set to auto_increment, serial, etc.
 	 * @return	boolean
 	 */
-	public function create_table($table_name, $fields, $primary_key = TRUE)
+	public function create_table($table_name, $fields, $primary_key = TRUE, $table_options = FALSE)
 	{
 		$this->log("Creating table '$table_name'...");
-		$ret = $this->driver->create_table($table_name, $fields, $primary_key);
+		$ret = $this->driver->create_table($table_name, $fields, $primary_key, $table_options);
 		$this->log("DONE<br />");
 		return $ret;
 	}
