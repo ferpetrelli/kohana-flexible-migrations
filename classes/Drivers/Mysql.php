@@ -12,8 +12,7 @@ class Drivers_Mysql extends Drivers_Driver
 	{
 		$this->db->query($this->group, 'COMMIT', false);
 	}
-	
-	public function create_table($table_name, $fields, $primary_key = TRUE)
+	public function create_table($table_name, $fields, $primary_key = TRUE, $table_options = FALSE)
 	{
 		$sql = "CREATE TABLE `$table_name` (";
 
@@ -51,6 +50,32 @@ class Drivers_Mysql extends Drivers_Driver
 		}
 
 		$sql .= ")";
+
+    // http://dev.mysql.com/doc/refman/5.5/en/create-table.html
+    if (is_array($table_options))
+    {
+      if ( isset( $table_options['engine'] ) )
+      {
+        $sql .= " ENGINE=" . $table_options['engine'];
+      }
+
+      if ( isset( $table_options['auto_increment'] ) )
+      {
+        $sql .= " AUTO_INCREMENT=" . $table_options['auto_increment'];
+      }
+
+      if ( isset( $table_options['character_set'] ) )
+      {
+        $sql .= " CHARACTER SET=" . $table_options['character_set'];
+      }
+
+      if ( isset( $table_options['comment'] ) )
+      {
+        $sql .= " COMMENT '" . str_replace("'", "''", $table_options['comment']) . "'";
+      }
+
+      $sql .= ";";
+    }
 
 		return $this->run_query($sql);
 	}
