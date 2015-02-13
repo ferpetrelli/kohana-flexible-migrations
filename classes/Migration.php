@@ -200,6 +200,40 @@ class Migration
 	}
 
 	/**
+	 * Add a foreign key to a table
+	 *
+	 * @example add_foreign_key ( "client", "city_id", "city", "id");
+	 *
+	 * @param   string  Name of the table
+	 * @param   string  Name of the column
+	 * @param   string  Name of referenced table
+	 * @param   string  Name of referenced column
+	 * @return  boll    Returns true if no errors
+	 */
+	public function add_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name)
+	{
+		$ret = $this->driver->add_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name);
+		return $ret;
+	}
+
+	/**
+	 * Add a foreign key to a table
+	 *
+	 * @example remove_foreign_key ( "client", "city_id", "city", "id");
+	 *
+	 * @param   string  Name of the table
+	 * @param   string  Name of the column
+	 * @param   string  Name of referenced table
+	 * @param   string  Name of referenced column
+	 * @return  boll    Returns true if no errors
+	 */
+	public function remove_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name)
+	{
+		$ret = $this->driver->remove_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name);
+		return $ret;
+	}
+
+	/**
 	 * Add an index
 	 *
 	 * @param   string  Name of the table

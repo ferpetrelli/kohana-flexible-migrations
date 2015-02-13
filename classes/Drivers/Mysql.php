@@ -91,6 +91,18 @@ class Drivers_Mysql extends Drivers_Driver
 		return $this->run_query("ALTER TABLE $table_name DROP COLUMN $column_name ;");
 	}
 	
+	public function add_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name)
+	{
+		$fk = 'fk'.$table_name.$column_name.$referenced_table_name.$referenced_column_name;
+		return $this->run_query("ALTER TABLE $table_name ADD CONSTRAINT $fk "
+			."FOREIGN KEY ( `$column_name` ) REFERENCES `$referenced_table_name` ( `$referenced_column_name` ); ");
+	}
+	
+	public function remove_foreign_key($table_name, $column_name, $referenced_table_name, $referenced_column_name){
+		$fk = 'fk'.$table_name.$column_name.$referenced_table_name.$referenced_column_name;
+		return $this->run_query("ALTER TABLE $table_name DROP FOREIGN KEY $fk;");
+	}
+
 	public function add_index($table_name, $index_name, $columns, $index_type = 'normal')
 	{
 		switch ($index_type)
