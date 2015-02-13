@@ -183,7 +183,7 @@ class Drivers_Mysql extends Drivers_Driver
 				default: break;
 			}
 
-			throw new Kohana_Exception('migrations.bad_column :column', array(':column' => $column));
+			throw new Kohana_Exception('migrations.bad_column :column', array(':column' => $field_name));
 		}
 
 		if (empty($type))
