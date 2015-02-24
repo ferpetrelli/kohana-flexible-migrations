@@ -31,7 +31,7 @@
     	  <tr>
          <td><?php echo  basename($migration, EXT); ?></td> 
          <td> 
-         <?php   if ( array_key_exists(  substr(basename($migration, EXT), 0, 14) , $migrations_runned) ) { ?>
+         <?php   if ( array_key_exists(  substr(basename($migration, EXT), 0, 20) , $migrations_runned) ) { ?>
                <span class="ok">OK</span>
          <?php   } else { ?>
                <span class="pending">PENDING</span>

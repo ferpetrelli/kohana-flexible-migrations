@@ -119,7 +119,13 @@ class Kohana_Flexiblemigrations
 	 */
 	public function get_timestamp() 
 	{
-		return date('YmdHis');
+		$micro_date = microtime();
+		$date_array = explode(" ", $micro_date);
+		$microseconds_array = explode(".", $date_array[0]);
+		$microseconds = $microseconds_array[1];
+		$microseconds = substr($microseconds, 0, -2);
+
+		return date('YmdHis').$microseconds;
 	}
 
 	/**
@@ -133,7 +139,7 @@ class Kohana_Flexiblemigrations
 		foreach ($migrations as $i => $file)
 		{
 			$name = basename($file, EXT);
-			if (!preg_match('/^\d{14}_(\w+)$/', $name)) //Check filename format
+			if (!preg_match('/^\d{20}_(\w+)$/', $name)) //Check filename format
 				unset($migrations[$i]);
 		}
 		sort($migrations);
@@ -180,8 +186,8 @@ class Kohana_Flexiblemigrations
 		$keys = array();
 		foreach ($migrations as $migration) 
 		{
-			$sub_migration = substr(basename($migration, EXT), 0, 14);
-			$keys = Arr::merge($keys, array($sub_migration => substr(basename($migration, EXT), 15)));
+			$sub_migration = substr(basename($migration, EXT), 0, 20);
+			$keys = Arr::merge($keys, array($sub_migration => substr(basename($migration, EXT), 21)));
 		}
 		return $keys;
 	}
@@ -205,7 +211,7 @@ class Kohana_Flexiblemigrations
 		$name = basename($f[0], EXT);
 
 		// Filename validation
-		if ( !preg_match('/^\d{14}_(\w+)$/', $name, $match) )
+		if ( !preg_match('/^\d{20}_(\w+)$/', $name, $match) )
 			throw new Kohana_Exception('Invalid filename :file', array(':file' => $file));
 
 		$match[1] = strtolower($match[1]);
