@@ -70,9 +70,10 @@ abstract class Drivers_Driver
 	 * @param	array
 	 * @param	mixed    Primary key, false if not desired, not specified sets to 'id' column.
 	 *                   Will be set to auto_increment by default.
+   * @param mixed    Driver specific table options.  Array of options, or false if none.
 	 * @return	boolean
 	 */
-	abstract public function create_table($table_name, $fields, $primary_key = TRUE);
+	abstract public function create_table($table_name, $fields, $primary_key = TRUE, $table_options = FALSE);
 
 	/**
 	 * Drop a table
