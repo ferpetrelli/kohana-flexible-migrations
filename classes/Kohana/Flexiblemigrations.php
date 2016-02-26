@@ -219,7 +219,7 @@ class Kohana_Flexiblemigrations
 		if ( !method_exists($class, 'up') OR !method_exists($class, 'down') )
 			throw new Kohana_Exception('Up or down functions missing on class :class', array(':class' => $class));
 
-		return new $class();
+		return new $class(FALSE, Database::$default);
 	}
 
 }
