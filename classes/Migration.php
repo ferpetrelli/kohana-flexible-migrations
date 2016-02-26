@@ -29,7 +29,7 @@ class Migration
 	
 	public function __construct($output = FALSE, $group = 'default')
 	{
-		$this->db = Database::instance($this->group);
+		$this->db = Database::instance($group);
 
 		$platform = 'mysql'; // $this->db->platform();
 		if ($platform = 'mysqli')
